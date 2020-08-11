@@ -48,7 +48,7 @@ class Graph:
                     visited.add(v)
                     queue.enqueue(v)
             queue.dequeue()
-            print(u, end=", " if queue.size() > 0 else "\n")
+            print(u)
 
     def dft(self, starting_vertex):
         """
@@ -58,7 +58,7 @@ class Graph:
         stack = Stack()
         visited = set()
         stack.push(starting_vertex)
-
+        order = []
         while stack.size() > 0:
             u = stack.pop()
 
@@ -67,7 +67,8 @@ class Graph:
                 for v in self.get_neighbors(u):
                     if v not in visited:
                         stack.push(v)
-                print(u)
+                order += [u]
+        print(*order, sep="\n")
 
     def dft_recursive(self, starting_vertex, visited=[]):
         """
@@ -86,7 +87,7 @@ class Graph:
             if v not in vis:
                 vis = self.dft_recursive(v, visited=vis)
         if len(visited) == 0:
-            print(*vis, sep=", ")
+            print(*vis, sep="\n")
         else:
             return vis
 
@@ -102,7 +103,7 @@ class Graph:
                     visited.add(v)
                     n_path = path + (v,)
                     if v == destination_vertex:
-                        return n_path
+                        return list(n_path)
                     queue.enqueue(n_path)
             queue.dequeue()
 
@@ -123,11 +124,11 @@ class Graph:
                 for v in self.get_neighbors(u[-1]):
                     path = u + (v,)
                     if v == destination_vertex:
-                        return path
+                        return list(path)
                     elif path not in visited:
                         stack.push(path)
 
-    def dfs_recursive(self, starting_vertex, destination_vertex, visited=[], path=tuple()):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=[], path=[]):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -138,7 +139,7 @@ class Graph:
         vis = visited[:]
         vis.append(starting_vertex)
         for v in self.get_neighbors(starting_vertex):
-            p = path + (starting_vertex,)
+            p = path + [starting_vertex]
             if v not in vis:
                 vis, p = self.dfs_recursive(v, destination_vertex, visited=vis, path=p)
                 if p[-1] == destination_vertex:
