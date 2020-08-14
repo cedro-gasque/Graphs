@@ -31,6 +31,19 @@ player = Player(world.starting_room)
 traversal_path = []
 
 inverse = lambda c : chr(ord(c) ^ (18 + 11 * (c in 'ns')))
+
+order = {
+    1: {'s': -1, 'e': -1, 'n': -1, 'w': -1},
+    7: {'e': -1, 'n': -1, 's': -1},
+    81: {'n': -1, 'w': -1, 's': -1, 'e': -1},
+    128: {'w': -1, 's': -1, 'e': -1},
+    284: {'n': -1, 'w': -1, 's': -1, 'e': -1},
+    344: {'w': -1, 'e': -1, 'n': -1},
+    220: {'w': -1, 'e': -1, 'n': -1},
+    149: {'s': -1, 'n': -1, 'w': -1},
+    126: {'w': -1, 'n': -1, 's': -1},
+    104: {'w': -1, 'n': -1, 's': -1}
+}
 def deepest():
     """
     Return a list containing a path
@@ -39,7 +52,7 @@ def deepest():
     longest = 0
     path = ['n']
     back = ['s']
-    graph = {0: {'n': -1, 's': -1, 'w': -1, 'e': 1}}
+    graph = {0: {'n': -1, 's': -1, 'w': 3, 'e': -1}}
     visited = {0}
     room = room_graph[0][1]['n']
     exits = room_graph[room][1]
@@ -50,10 +63,17 @@ def deepest():
     while len(visited) < 500:
         if room not in graph:
             visited.add(room)
-            graph[room] = {k: -1 for k in exits.keys()}
+            if room in order:
+                graph[room] = order[room]
+            else:
+                graph[room] = {k: -1 for k in exits.keys()}
             graph[room][inverse(path_dir)] = previous_room
         deadend = True
-        for dir, r in exits.items():
+        for dir, r in graph[room].items():
+            if r == -1:
+                r = exits[dir]
+            if room in [1, 7, 13, 19, 40, 45, 81, 92, 128, 284, 418, 344, 220, 215, 156, 149]:
+                print(room, r)
             if graph[room][dir] is -1 and r not in visited:
                 graph[room][dir] = r
                 previous_room, room = room, r
@@ -63,22 +83,24 @@ def deepest():
                 break
             elif graph[room][dir] is -1 and r in visited:
                 graph[room][dir] = r
-                deadend = True
-                break
         if deadend:
-            s = False
-            if len(back) > longest:
-                s = True
-                longest = len(back)
-            while -1 not in graph[room].values() and len(back) > 0:
-                dir = back.pop()
-                path.append(dir)
-                previous_room, room = room, graph[room][dir]
-                path_dir = dir
-                exits = room_graph[room][1]
-            if longest is 42 and s:
-                print(room)
-                print(back[::-1])
+            if len(visited) < 500:
+                s = False
+                if len(back) > longest:
+                    s = True
+                    longest = len(back)
+                while -1 not in graph[room].values() and len(back) > 0:
+                    if room == 122:
+                        print(len(visited), len(path))
+                    dir = back.pop()
+                    path.append(dir)
+                    previous_room, room = room, graph[room][dir]
+                    path_dir = dir
+                    exits = room_graph[room][1]
+                if longest is 42 and s:
+                    print("LONGEST")
+                    print(room)
+                    print(back[::-1])
         else:
             path.append(path_dir)
             back.append(inverse(path_dir))
