@@ -33,26 +33,104 @@ traversal_path = []
 inverse = lambda c : chr(ord(c) ^ (18 + 11 * (c in 'ns')))
 
 order = {
-    1: {'s': -1, 'e': -1, 'n': -1, 'w': -1},
-    7: {'e': -1, 'n': -1, 's': -1},
-    81: {'n': -1, 'w': -1, 's': -1, 'e': -1},
-    128: {'w': -1, 's': -1, 'e': -1},
-    284: {'n': -1, 'w': -1, 's': -1, 'e': -1},
-    344: {'w': -1, 'e': -1, 'n': -1},
-    220: {'w': -1, 'e': -1, 'n': -1},
-    149: {'s': -1, 'n': -1, 'w': -1},
-    126: {'w': -1, 'n': -1, 's': -1},
-    104: {'w': -1, 'n': -1, 's': -1}
+    0: {'n': -1, 's': -1, 'w': -1, 'e': 1},
+    3: {'w': -1, 'n': -1, 'e': -1},
+    104: {'w': -1, 's': -1, 'n': -1},
+    126: {'w': -1, 's': -1, 'n': -1},
+    149: {'s': -1, 'w': -1, 'n': -1},
+    220: {'w': -1, 'n': -1, 'e': -1},
+    344: {'w': -1, 'n': -1, 'e': -1},
+    418: {'w': -1, 'e': -1, 's': -1},
+    284: {'n': -1, 'w': -1, 'e': -1, 's': -1},
+    128: {'w': -1, 'e': -1, 's': -1},
+    92: {'s': -1, 'n': -1, 'w': -1},
+    81: {'w': -1, 'n': -1, 'e': -1, 's': -1},
+    13: {'e': -1, 'n': -1, 'w': -1},
+    5: {'s': -1, 'w': -1, 'n': -1},
+    6: {'w': -1, 's': -1, 'e': -1},
+    23: {'w': -1, 's': -1, 'e': -1},
+    57: {'w': -1, 's': -1, 'n': -1},
+    94: {'w': -1, 's': -1, 'n': -1},
+    97: {'w': -1, 's': -1, 'n': -1},
+    110: {'w': -1, 's': -1, 'n': -1},
+    118: {'w': -1, 'e': -1, 'n': -1},
+    218: {'s': -1, 'n': -1, 'w': -1},
+    14: {'w': -1, 'n': -1, 's': -1},
+    17: {'w': -1, 'n': -1, 'e': -1, 's': -1},
+    28: {'s': -1, 'n': -1, 'w': -1},
+    64: {'w': -1, 'n': -1, 's': -1},
+    111: {'e': -1, 'n': -1, 's': -1},
+    121: {'n': -1, 'e': -1, 's': -1},
+    148: {'e': -1, 's': -1, 'n': 163},
+    163: {'e': -1, 'n': -1, 'w': -1, 's': 148},
+    147: {'e': -1, 's': -1, 'n': -1},
+    17: {'w': -1, 'n': -1, 'e': -1, 's': -1},
+    28: {'s': -1, 'n': -1, 'w': -1},
+    64: {'w': -1, 'n': -1, 's': -1},
+    111: {'e': -1, 'n': -1, 's': -1},
+    121: {'n': -1, 'e': -1, 's': -1},
+    139: {'e': -1, 'n': -1, 'w': -1},
+    148: {'e': -1, 's': -1, 'n': 163},
+    147: {'e': -1, 's': -1, 'n': -1},
+    152: {'n': -1, 'w': -1, 's': -1},
+    321: {'n': -1, 'w': -1, 's': -1},
+    354: {'n': -1, 'w': -1, 'e': -1},
+    163: {'e': -1, 'w': -1, 'n': -1, 's': 148},
+    165: {'n': -1, 'w': -1, 'e': -1},
+    199: {'w': -1, 'n': -1, 'e': -1},
+    281: { 'n': -1, 'w': -1, 's': -1},
 }
+
+order2 = {
+    0: {'n': -1, 's': -1, 'e': -1, 'w': -1},
+    9: {'s': -1, 'w': 13},
+    5: {'s': -1, 'w': -1, 'n': -1},
+    6: {'w': -1, 's': -1, 'e': -1},
+    23: {'w': -1, 's': -1, 'e': -1},
+    57: {'w': -1, 's': -1, 'n': -1},
+    94: {'w': -1, 's': -1, 'n': -1},
+    97: {'w': -1, 's': -1, 'n': -1},
+    110: {'w': -1, 's': -1, 'n': -1},
+    118: {'w': -1, 'e': -1, 'n': -1},
+    218: {'s': -1, 'n': -1, 'w': -1},
+    3: {'w': -1, 'n': -1, 'e': -1},
+    104: {'w': -1, 's': -1, 'n': -1},
+    126: {'w': -1, 's': -1, 'n': -1},
+    149: {'s': -1, 'w': -1, 'n': -1},
+    220: {'w': -1, 'n': -1, 'e': -1},
+    344: {'w': -1, 'n': -1, 'e': -1},
+    418: {'w': -1, 'e': -1, 's': -1},
+    284: {'n': -1, 'w': -1, 'e': -1, 's': -1},
+    128: {'w': -1, 'e': -1, 's': -1},
+    92: {'s': -1, 'n': -1, 'w': -1},
+    81: {'w': -1, 'n': -1, 'e': -1, 's': -1},
+    13: {'n': -1, 'w': -1, 'e': 9},
+    14: {'w': -1, 'n': -1, 's': -1},
+    17: {'w': -1, 'n': -1, 'e': -1, 's': -1},
+    28: {'s': -1, 'n': -1, 'w': -1},
+    64: {'w': -1, 'n': -1, 's': -1},
+    111: {'e': -1, 'n': -1, 's': -1},
+    121: {'n': -1, 'e': -1, 's': -1},
+    139: {'e': -1, 'n': -1, 'w': -1},
+    148: {'e': -1, 's': -1, 'n': 163},
+    147: {'e': -1, 's': -1, 'n': -1},
+    152: {'n': -1, 'w': -1, 's': -1},
+    321: {'n': -1, 'w': -1, 's': -1},
+    354: {'n': -1, 'w': -1, 'e': -1},
+    163: {'e': -1, 'w': -1, 'n': -1, 's': 148},
+    165: {'n': -1, 'w': -1, 'e': -1},
+    199: {'w': -1, 'n': -1, 'e': -1},
+    281: { 'n': -1, 'w': -1, 's': -1},
+}
+# order = order2
 def deepest():
     """
     Return a list containing a path
     that travels through every room at least once.
     """
-    longest = 0
     path = ['n']
     back = ['s']
-    graph = {0: {'n': -1, 's': -1, 'w': 3, 'e': -1}}
+    graph = {0: order[0]}
     visited = {0}
     room = room_graph[0][1]['n']
     exits = room_graph[room][1]
@@ -72,8 +150,6 @@ def deepest():
         for dir, r in graph[room].items():
             if r == -1:
                 r = exits[dir]
-            if room in [1, 7, 13, 19, 40, 45, 81, 92, 128, 284, 418, 344, 220, 215, 156, 149]:
-                print(room, r)
             if graph[room][dir] is -1 and r not in visited:
                 graph[room][dir] = r
                 previous_room, room = room, r
@@ -85,34 +161,31 @@ def deepest():
                 graph[room][dir] = r
         if deadend:
             if len(visited) < 500:
-                s = False
-                if len(back) > longest:
-                    s = True
-                    longest = len(back)
+                if room is 62:
+                    while room != 6:
+                        dir = back.pop()
+                        previous_room, room = room, graph[room][dir]
+                        path_dir = dir
+                        exits = room_graph[room][1]
+                    path.append('n')
+                    previous_room, room = 62, 6
+                    path_dir = 'w'
+                    exits = room_graph[room][1]
                 while -1 not in graph[room].values() and len(back) > 0:
-                    if room == 122:
-                        print(len(visited), len(path))
                     dir = back.pop()
                     path.append(dir)
                     previous_room, room = room, graph[room][dir]
                     path_dir = dir
                     exits = room_graph[room][1]
-                if longest is 42 and s:
-                    print("LONGEST")
-                    print(room)
-                    print(back[::-1])
         else:
             path.append(path_dir)
             back.append(inverse(path_dir))
-    print(longest)
     return path
 traversal_path = deepest()
-print(traversal_path[-25:])
 # TRAVERSAL TEST
 visited_rooms = set()
 player.current_room = world.starting_room
 visited_rooms.add(player.current_room)
-print(player.current_room.id)
 for i, move in enumerate(traversal_path):
     player.travel(move)
     visited_rooms.add(player.current_room)
@@ -125,12 +198,12 @@ else:
 #######
 # UNCOMMENT TO WALK AROUND
 #######
-player.current_room.print_room_description(player)
-while True:
-    cmds = input("-> ").lower().split(" ")
-    if cmds[0] in ["n", "s", "e", "w"]:
-        player.travel(cmds[0], True)
-    elif cmds[0] == "q":
-        break
-    else:
-        print("I did not understand that command.")
+# player.current_room.print_room_description(player)
+# while True:
+#     cmds = input("-> ").lower().split(" ")
+#     if cmds[0] in ["n", "s", "e", "w"]:
+#         player.travel(cmds[0], True)
+#     elif cmds[0] == "q":
+#         break
+#     else:
+#         print("I did not understand that command.")
