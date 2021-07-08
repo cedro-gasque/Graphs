@@ -10,6 +10,8 @@ class Queue():
             return self.queue.pop(0)
         else:
             return None
+    def __getitem__(self, key):
+        return self.queue[key]
     def size(self):
         return len(self.queue)
 
@@ -25,4 +27,3 @@ class Stack():
             return None
     def size(self):
         return len(self.stack)
-
